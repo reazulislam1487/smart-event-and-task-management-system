@@ -33,6 +33,22 @@ Smart Event & Task Management System হলো একটি **RESTful backend AP
 
 ---
 
+```plaintext
+┌───────────┐       ┌────────────┐       ┌───────────────┐
+│   Client  │ <---> │  Express   │ <---> │   MySQL DB    │
+│ (Postman, │       │  Backend   │       │  (Users,      │
+│  Browser) │       │  REST API  │       │   Tasks,      │
+└───────────┘       └────────────┘       │   Events)     │
+                                          └───────────────┘
+                                                ^
+                                                │
+                                                ▼
+                                          ┌───────────┐
+                                          │   Redis   │
+                                          │ (Caching) │
+                                          └───────────┘
+```
+
 ## 📊 Database Schema
 
 ### Users
@@ -136,8 +152,7 @@ Smart Event & Task Management System হলো একটি **RESTful backend AP
 
 ## 📂 Project Structure
 
----
-
+```
 smart-event-task-backend/
 │── node_modules/
 │── src/
@@ -166,7 +181,7 @@ smart-event-task-backend/
 │── package.json
 │── README.md
 
----
+```
 
 ---
 
