@@ -33,6 +33,8 @@ Smart Event & Task Management System হলো একটি **RESTful backend AP
 
 ---
 
+## Architecture Diagram
+
 ```plaintext
 ┌───────────┐       ┌────────────┐       ┌───────────────┐
 │   Client  │ <---> │  Express   │ <---> │   MySQL DB    │
@@ -189,8 +191,8 @@ smart-event-task-backend/
 
 ```bash
 # Clone repo
-git clone https://github.com/your-username/smart-event-task-backend.git
-cd smart-event-task-backend
+git clone https://github.com/reazulislam1487/smart-event-and-task-management-system
+cd smart-event-and-task-management-system
 
 # Install dependencies
 npm install
