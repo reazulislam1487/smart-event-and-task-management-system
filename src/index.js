@@ -50,6 +50,7 @@ import {
   createUser,
   findUserById,
   userDeleteController,
+  userUpdate,
 } from "./controllers/userController.js";
 
 dotenv.config();
@@ -64,7 +65,6 @@ const db = new Database({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
 });
-
 // User Model
 const userModel = new User(db);
 
@@ -73,6 +73,7 @@ app.get("/", (req, res) => res.send("API running..."));
 app.get("/user/:id", (req, res) => findUserById(req, res, userModel));
 app.get("/users", (req, res) => getAllUsers(req, res, userModel));
 app.post("/users", (req, res) => createUser(req, res, userModel));
+app.put("/users", (req, res) => userUpdate(req, res, userModel));
 app.delete("/delete/:id", (req, res) =>
   userDeleteController(req, res, userModel)
 );

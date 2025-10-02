@@ -21,6 +21,10 @@ class User {
   async delete(id) {
     return this.db.query("DELETE FROM users WHERE id = ?", [id]);
   }
+  async update(newPassword,userId){
+    return this.db.query( "UPDATE users SET password = ? WHERE id = ?",
+      [newPassword, userId])
+  }
 }
 
 export default User;

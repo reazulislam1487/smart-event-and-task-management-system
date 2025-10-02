@@ -77,3 +77,13 @@ export const userDeleteController = async (req, res, userModel) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+export const userUpdate = async (req, res, userModel) => {
+  const { newPassword, userId } = req.body;
+  try {
+    const updatedUser = await userModel.update(newPassword, userId);
+    res.json({ message: "User deleted successfully", updatedUser });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
