@@ -51,7 +51,9 @@ import {
   findUserById,
   userDeleteController,
   userUpdate,
+  login,
 } from "./controllers/userController.js";
+import verifyToken from "./middlewares/authMiddleware.js";
 
 dotenv.config();
 
@@ -70,8 +72,9 @@ const userModel = new User(db);
 
 // Routes
 app.get("/", (req, res) => res.send("API running..."));
+app.post("/login", (req, res) => login(req, res, userModel));
 app.get("/user/:id", (req, res) => findUserById(req, res, userModel));
-app.get("/users", (req, res) => getAllUsers(req, res, userModel));
+app.get("/users", verifyToken, (req, res) => getAllUsers(req, res, userModel));
 app.post("/users", (req, res) => createUser(req, res, userModel));
 app.put("/users", (req, res) => userUpdate(req, res, userModel));
 app.delete("/delete/:id", (req, res) =>

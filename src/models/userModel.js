@@ -13,7 +13,9 @@ class User {
   async findAll() {
     return this.db.query("SELECT * FROM users");
   }
-
+  async findByEmail(email) {
+    return this.db.query("SELECT * FROM users WHERE email = ?", [email]);
+  }
   async findById(id) {
     return this.db.query("SELECT * FROM users WHERE id = ?", [id]);
   }
@@ -21,9 +23,11 @@ class User {
   async delete(id) {
     return this.db.query("DELETE FROM users WHERE id = ?", [id]);
   }
-  async update(newPassword,userId){
-    return this.db.query( "UPDATE users SET password = ? WHERE id = ?",
-      [newPassword, userId])
+  async update(newPassword, userId) {
+    return this.db.query("UPDATE users SET password = ? WHERE id = ?", [
+      newPassword,
+      userId,
+    ]);
   }
 }
 
