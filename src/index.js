@@ -45,16 +45,9 @@ import express from "express";
 import dotenv from "dotenv";
 import Database from "./config/db.js";
 import User from "./models/userModel.js";
-import {
-  getAllUsers,
-  createUser,
-  findUserById,
-  userDeleteController,
-  userUpdate,
-  login,
-} from "./controllers/userController.js";
-import verifyToken from "./middlewares/authMiddleware.js";
+
 import errorHandler from "./middlewares/errorHandler.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -72,17 +65,21 @@ const db = new Database({
 const userModel = new User(db);
 
 // Routes
+
 app.get("/", (req, res) => res.send("API running..."));
-app.post("/login", (req, res) => login(req, res, userModel));
-app.get("/user/:id", verifyToken, (req, res) =>
-  findUserById(req, res, userModel)
-);
-app.get("/users", verifyToken, (req, res) => getAllUsers(req, res, userModel));
-app.post("/users", (req, res) => createUser(req, res, userModel));
-app.put("/users", verifyToken, (req, res) => userUpdate(req, res, userModel));
-app.delete("/delete/:id", verifyToken, (req, res) =>
-  userDeleteController(req, res, userModel)
-);
+
+app.use("/", userRoutes(userModel));
+// app.post("/login", (req, res) => login(req, res, userModel));
+// app.get("/user/:id", verifyToken, (req, res) =>
+//   findUserById(req, res, userModel)
+// );
+// app.get("/users", verifyToken, (req, res) => getAllUsers(req, res, userModel));
+// app.post("/users", (req, res) => createUser(req, res, userModel));
+// app.put("/users", verifyToken, (req, res) => userUpdate(req, res, userModel));
+// app.delete("/delete/:id", verifyToken, (req, res) =>
+//   userDeleteController(req, res, userModel)
+// );
+// Global Error Handler Middleware
 app.use(errorHandler);
 
 // Start Server
