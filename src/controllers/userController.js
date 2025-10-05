@@ -49,32 +49,32 @@ export const createUser = async (req, res, userModel) => {
 
 export const login = async (req, res, userModel) => {
   const { email, password } = req.body;
-  try {
-    const user = await userModel.findByEmail(email);
+  // try {
+  const user = await userModel.findByEmail(email);
 
-    if (user && user.length > 0) {
-      const isValidPassword = await bcrypt.compare(password, user[0].password);
-      if (isValidPassword) {
-        // generate token
-        const token = jwt.sign(
-          { email: user[0].email, userId: user[0].id },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: "1h",
-          }
-        );
+  if (user && user.length > 0) {
+    const isValidPassword = await bcrypt.compare(password, user[0].password);
+    if (isValidPassword) {
+      // generate token
+      const token = jwt.sign(
+        { email: user[0].email, userId: user[0].id },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
 
-        res.status(200).json({
-          accessToken: token,
-          message: "Login Successfully",
-        });
-      } else {
-        res.status(401).json("authentication Failed");
-      }
+      res.status(200).json({
+        accessToken: token,
+        message: "Login Successfully",
+      });
+    } else {
+      res.status(401).json("authentication Failed");
     }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
   }
+  // } catch (err) {
+  //   res.status(500).json({ error: err.message });
+  // }
 };
 
 // is parser

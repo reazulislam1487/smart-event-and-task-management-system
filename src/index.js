@@ -54,6 +54,7 @@ import {
   login,
 } from "./controllers/userController.js";
 import verifyToken from "./middlewares/authMiddleware.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 dotenv.config();
 
@@ -73,13 +74,16 @@ const userModel = new User(db);
 // Routes
 app.get("/", (req, res) => res.send("API running..."));
 app.post("/login", (req, res) => login(req, res, userModel));
-app.get("/user/:id", (req, res) => findUserById(req, res, userModel));
+app.get("/user/:id", verifyToken, (req, res) =>
+  findUserById(req, res, userModel)
+);
 app.get("/users", verifyToken, (req, res) => getAllUsers(req, res, userModel));
 app.post("/users", (req, res) => createUser(req, res, userModel));
-app.put("/users", (req, res) => userUpdate(req, res, userModel));
-app.delete("/delete/:id", (req, res) =>
+app.put("/users", verifyToken, (req, res) => userUpdate(req, res, userModel));
+app.delete("/delete/:id", verifyToken, (req, res) =>
   userDeleteController(req, res, userModel)
 );
+app.use(errorHandler);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
