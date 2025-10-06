@@ -49,6 +49,7 @@ export const createUser = async (req, res, userModel) => {
 
 export const login = async (req, res, userModel) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     const user = await userModel.findByEmail(email);
 
@@ -93,8 +94,6 @@ export const findUserById = async (req, res, userModel) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-//
 
 // Controller: delete user by ID
 export const userDeleteController = async (req, res, userModel) => {
