@@ -15,9 +15,7 @@ export default (userModel) => {
   router.get("/user/:id", verifyToken, (req, res) =>
     findUserById(req, res, userModel)
   );
-  router.get("/users", verifyToken, (req, res) =>
-    getAllUsers(req, res, userModel)
-  );
+  router.get("/users", (req, res) => getAllUsers(req, res, userModel));
   router.post("/users", (req, res) => createUser(req, res, userModel));
   router.put("/users", verifyToken, (req, res) =>
     userUpdate(req, res, userModel)
