@@ -48,6 +48,8 @@ import User from "./models/userModel.js";
 
 import errorHandler from "./middlewares/errorHandler.js";
 import userRoutes from "./routes/userRoutes.js";
+import Task from "./models/taskModel.js";
+import taskRoutes from "./routes/taskRoutes.js";
 
 dotenv.config();
 
@@ -63,12 +65,14 @@ const db = new Database({
 });
 // User Model
 const userModel = new User(db);
+const taskModel = new Task(db);
 
-// Routes
-
+// default routes
 app.get("/", (req, res) => res.send("API running..."));
 
+// all routes
 app.use("/", userRoutes(userModel));
+app.use("/task", taskRoutes(taskModel));
 // app.post("/login", (req, res) => login(req, res, userModel));
 // app.get("/user/:id", verifyToken, (req, res) =>
 //   findUserById(req, res, userModel)

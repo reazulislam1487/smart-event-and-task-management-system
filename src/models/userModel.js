@@ -2,6 +2,12 @@ class User {
   constructor(db) {
     this.db = db;
   }
+  // query demo from db
+  //  async query(sql, params) {
+  //   const conn = await this.connect();
+  //   const [rows] = await conn.execute(sql, params);
+  //   return rows;
+  // }
 
   async create(name, email, password) {
     return this.db.query(
